@@ -173,31 +173,6 @@ bool Card::Beats(Card*& other, Suit trumps, bool useTrumps) const
 	return false;
 }
 
-//bool Card::operator<(const Card*& other) const
-//{
-//	if(this->m_suit == other->m_suit)
-//	{
-//		if(m_acesHigh)
-//		{
-//			if(this->m_number == 1)
-//			{
-//				return false;
-//			}
-//			if(other->m_number == 1)
-//			{
-//				return true;
-//			}
-//		}
-//		return(this->m_number < other->m_number);
-//	}
-//	return(this->m_suit < other->m_suit);
-//}
-//
-//bool Card::operator<(const Card& other) const
-//{
-//	return (this < &other);
-//}
-
 Card* Card::FromString(std::string &str)
 {
 	std::stringstream ss;
