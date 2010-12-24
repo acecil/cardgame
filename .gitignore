@@ -1,0 +1,9 @@
+Debug/*
+Release/*
+cardGame/Debug/*
+cardGame/Release/*
+cardGame.opensdf
+cardGame.sdf
+cardGame.suo
+ipch
+cardGame/cardGame.vcxproj.*
