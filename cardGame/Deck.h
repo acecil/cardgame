@@ -1,13 +1,13 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 class Card;
 
 class Deck
 {
 public:
-	typedef std::list<Card*>::iterator CardIt;
+	typedef std::vector<Card*>::iterator CardIt;
 	Deck(void);
 	virtual ~Deck(void);
 
@@ -18,7 +18,7 @@ public:
 
 
 private:
-	std::list<Card*> m_cards;
+	std::vector<Card*> m_cards;
 
 	static const unsigned int m_cardsInSuit = 13;
 };

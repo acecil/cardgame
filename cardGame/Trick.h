@@ -7,6 +7,7 @@
 class Player;
 class Settings;
 class Card;
+enum Suit;
 
 class Trick
 {
@@ -15,8 +16,11 @@ public:
 	virtual ~Trick(void);
 
 	void Play(Player* player, Card* card);
-	std::list<Player*>::iterator Score(void);
+	Player* Score(void);
 	bool Complete(void) const;
+
+	unsigned int GetNumCards(void) const;
+	Suit GetFirstSuit(void) const;
 
 	std::string ToString(void) const;
 

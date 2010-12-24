@@ -17,10 +17,12 @@ public:
 
 	void Deal(Hand* hand);
 
-	Card* PlayCard(Trick* trick);
+	Card* PlayCard(Trick* trick, bool followSuit);
 
 	int GetScore(void) const;
 	void AddScore(int score);
+
+	unsigned int GetNumCards(void) const;
 
 	std::string ToString(void) const { return m_name; }
 
@@ -32,4 +34,3 @@ private:
 	Hand* m_hand;
 	
 };
-

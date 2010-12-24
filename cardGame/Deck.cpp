@@ -8,7 +8,7 @@
 
 Deck::Deck(void)
 {
-	for(Suit::Suit s = Suit::Begin(); s != Suit::End(); s = Suit::Next(s))
+	for(Suit s = FirstSuit; s != LastSuit; s = (Suit)(s + 1))
 	{
 		for(int n = 0; n < 13; n++)
 		{
@@ -20,10 +20,10 @@ Deck::Deck(void)
 
 Deck::~Deck(void)
 {
-	while(!m_cards.empty())
+	std::vector<Card*>::iterator c;
+	for(c = m_cards.begin(); c != m_cards.end(); ++c)
 	{
-		delete m_cards.front();
-		m_cards.pop_front();
+		delete *c;
 	}
 }
 

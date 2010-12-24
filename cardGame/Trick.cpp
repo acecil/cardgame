@@ -1,5 +1,7 @@
 #include "StdAfx.h"
 
+#include <cassert>
+
 #include "Trick.h"
 
 #include "Settings.h"
@@ -34,28 +36,39 @@ void Trick::Play(Player* player, Card* card)
 
 }
 
-std::list<Player*>::iterator Trick::Score(void)
+Player* Trick::Score(void)
 {
 	std::list<Player*>::iterator p;
-	std::list<Player*>::iterator winnerIt;
 
 	for(p = m_players.begin(); p != m_players.end(); ++p)
 	{
 		/* This currently only works for whist. */
 		if(*p == m_winningPlayer)
 		{
-			winnerIt = p;
 			(*p)->AddScore(1);
+			return *p;
 		}
 	}
 
-	return winnerIt;
+	assert(true);
+
+	return NULL;
 }
 
 bool Trick::Complete(void) const
 {
 	/* This needs to depend on settings. */
 	return (m_cards.size() == m_players.size());
+}
+
+unsigned int Trick::GetNumCards(void) const
+{ 
+	return m_cards.size(); 
+}
+
+Suit Trick::GetFirstSuit(void) const
+{
+	return m_cards.front().second->GetSuit();
 }
 
 std::string Trick::ToString(void) const

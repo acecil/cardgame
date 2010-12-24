@@ -9,7 +9,7 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Game *game = new Game(&Whist);
+	Game *game = new Game(&Whist, 1);
 
 	game->AddPlayer(new Player("Andrew"));
 	game->AddPlayer(new Player("Richard"));

@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 
 #include <iostream>
+#include <algorithm>
 
 #include "Game.h"
 
@@ -11,11 +12,14 @@
 #include "Settings.h"
 #include "Trick.h"
 
-Game::Game(const Settings* settings)
+Game::Game(const Settings* settings, unsigned int numRounds)
 {
 	m_settings = settings;
+	m_numRounds = numRounds;
 
 	m_deck = new Deck();
+
+	reset();
 }
 
 
@@ -47,11 +51,16 @@ void Game::Play(void)
 
 	while(!m_gameOver)
 	{
-		PlayTrick();
+		PlayRound();
+
+		if(m_roundsPlayed >= m_numRounds)
+		{
+			m_gameOver = true;
+		}
 	}
 }
 
-void Game::PlayTrick(void)
+void Game::PlayRound(void)
 {
 	/* Shuffle */
 	m_deck->Shuffle();
@@ -65,7 +74,7 @@ void Game::PlayTrick(void)
 		hands.push_back(new Hand());
 	}
 	
-	std::list<Card*>::iterator c = m_deck->Begin();
+	std::vector<Card*>::iterator c = m_deck->Begin();
 	std::list<Hand*>::iterator h;
 	for(unsigned int i = 0; i < m_settings->CardsPerPlayer; i++)
 	{
@@ -82,36 +91,77 @@ void Game::PlayTrick(void)
 		(*p)->Deal(*h);
 	}
 
-	/* Play */
-	std::list<Player*>::iterator playerIt = m_players.begin();
-	if(m_settings->LastWinnerPlaysFirst)
+	if(m_settings->PlayAllCards)
 	{
-		if(m_lastWinnerIt != m_players.end())
+		while(count_cards() > 0)
 		{
-			playerIt = m_lastWinnerIt;
+			PlayTrick();
 		}
 	}
-	
+	else
+	{
+		/* Some other means for determining the round is complete. */
+	}
+
+	m_roundsPlayed++;
+
+}
+
+void Game::PlayTrick(void)
+{
+	/* Play */
+	Player* nextPlayer = m_players.front();
+	if(m_settings->LastWinnerPlaysFirst)
+	{
+		if(m_lastWinner)
+		{
+			nextPlayer = m_lastWinner;
+		}
+	}
+	else
+	{
+		/* Some other means for deciding the player order. */
+	}
+
 	Trick *trick = new Trick(m_settings, m_players);
 
 	while(!trick->Complete())
 	{
-		trick->Play(*playerIt, (*playerIt)->PlayCard(trick));
+		trick->Play(nextPlayer, nextPlayer->PlayCard(trick, m_settings->FollowSuit));
 
 		if(m_settings->PlayInOrder)
 		{
-			playerIt++;			
+			std::list<Player*>::iterator it = std::find(m_players.begin(), m_players.end(), nextPlayer);
+			std::list<Player*>::iterator it2 = it;
+			if(it2 == m_players.end() || (++it2) == m_players.end())
+			{
+				nextPlayer = m_players.front();
+			}
+			else
+			{
+				nextPlayer = *(++it);
+			}
 		}
 		else
 		{
 			/* Determine next player by some other means here. */
-			playerIt++;
+			std::list<Player*>::iterator it = std::find(m_players.begin(), m_players.end(), nextPlayer);
+			std::list<Player*>::iterator it2 = it;
+			if(it2 == m_players.end() || (++it2) == m_players.end())
+			{
+				nextPlayer = m_players.front();
+			}
+			else
+			{
+				nextPlayer = *(++it);
+			}
 		}
 	}
 
 	/* Score */
-	m_lastWinnerIt = trick->Score();
+	m_lastWinner = trick->Score();
 
+	std::list<Player*>::iterator p;
 	for(p = m_players.begin(); p != m_players.end(); ++p)
 	{
 		std::cout << (*p)->ToString() << ": " << (*p)->GetScore() << std::endl;
@@ -120,12 +170,12 @@ void Game::PlayTrick(void)
 	m_tricks.push_back(trick);
 }
 
-Player* Game::GetWinner(void)
+Player* Game::GetWinner(void) const
 {
 	Player* winner;
 	int maxScore = 0;
 
-	std::list<Player*>::iterator i;
+	std::list<Player*>::const_iterator i;
 	for(i = m_players.begin(); i != m_players.end(); ++i)
 	{
 		if((*i)->GetScore() > maxScore)
@@ -149,11 +199,26 @@ void Game::reset(void)
 
 	m_gameOver = false;
 
-	m_lastWinnerIt = m_players.end();
+	m_roundsPlayed = 0;
+
+	m_lastWinner = NULL;
 
 	std::list<Player*>::iterator p;
 	for(p = m_players.begin(); p != m_players.end(); ++p)
 	{
 		(*p)->Reset();
 	}
+}
+
+unsigned int Game::count_cards(void) const
+{
+	unsigned int num_cards = 0;
+
+	std::list<Player*>::const_iterator p;
+	for(p = m_players.begin(); p != m_players.end(); ++p)
+	{
+		num_cards += (*p)->GetNumCards();
+	}
+
+	return num_cards;
 }

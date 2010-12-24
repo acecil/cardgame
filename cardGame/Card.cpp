@@ -6,7 +6,7 @@
 
 #include "Card.h"
 
-Suit::Suit Suit::FromChar(char ch)
+Suit SuitFromChar(char ch)
 {
 	switch(ch)
 	{
@@ -26,14 +26,14 @@ Suit::Suit Suit::FromChar(char ch)
 		assert(true);
 	}
 
-	return (Suit)0;
+	return FirstSuit;
 }
 
 Card::Card(void)
 {
 }
 
-Card::Card(Suit::Suit suit, unsigned int number)
+Card::Card(Suit suit, unsigned int number)
 {
 	m_suit = suit;
 	m_number = number;
@@ -46,20 +46,48 @@ Card::~Card(void)
 std::string Card::ToString(void) const
 {
 	std::stringstream ss;
-	ss << m_number;
+	
+	switch(m_number)
+	{
+	case 1:
+		ss << "A";
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+	case 9:
+	case 10:
+		ss << m_number;
+		break;
+	case 11:
+		ss << "J";
+		break;
+	case 12:
+		ss << "Q";
+		break;
+	case 13:
+		ss << "K";
+		break;
+	default:
+		assert(true);
+	}
 
 	switch(m_suit)
 	{
-	case Suit::Clubs:
+	case Clubs:
 		ss << "C";
 		break;
-	case Suit::Diamonds:
+	case Diamonds:
 		ss << "D";
 		break;
-	case Suit::Hearts:
+	case Hearts:
 		ss << "H";
 		break;
-	case Suit::Spades:
+	case Spades:
 		ss << "S";
 		break;
 	default:
@@ -93,4 +121,13 @@ bool Card::operator<(const Card*& other) const
 		return(other->m_number < this->m_number);
 	}
 	return(other->m_suit < this->m_suit);
+}
+
+bool Card::operator<(const Card& other) const
+{
+	if(other.m_suit == this->m_suit)
+	{
+		return(other.m_number < this->m_number);
+	}
+	return(other.m_suit < this->m_suit);
 }
