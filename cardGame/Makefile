@@ -1,26 +1,14 @@
 CC=g++
-CFLAGS=
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=cardGame.cpp Game.cpp Deck.cpp Player.cpp Trick.cpp Hand.cpp Card.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=cardgame
 
-IDIR=.
-ODIR=obj
-LDIR =../lib
+all: $(SOURCES) $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
-LIBS=-lm
-
-_DEPS = Game.h Settings.h Deck.h Player.h Trick.h Hand.h Card.h
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
-
-_OBJ = Game.o Settings.o Deck.o Player.o Trick.o Hand.o Card.o cardGame.o
-OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
-
-
-$(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-cardgame: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
-
-.PHONY: clean
-
-clean:
-	rm -f $(ODIR)/*.o *~ $(IDIR)/*~ 
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
