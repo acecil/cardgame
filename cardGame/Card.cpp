@@ -29,6 +29,42 @@ Suit SuitFromChar(char ch)
 	return FirstSuit;
 }
 
+char SuitToChar(Suit suit)
+{
+	switch(suit)
+	{
+	case Clubs:
+		return 'C';
+	case Diamonds:
+		return 'D';
+	case Hearts:
+		return 'H';
+	case Spades:
+		return 'S';
+	default:
+		assert(true);
+		return 0;
+	}
+}
+
+std::string SuitToString(Suit suit)
+{
+	switch(suit)
+	{
+	case Clubs:
+		return "Clubs";
+	case Diamonds:
+		return "Diamonds";
+	case Hearts:
+		return "Hearts";
+	case Spades:
+		return "Spades";
+	default:
+		assert(true);
+		return "";
+	}
+}
+
 Card::Card(void)
 {
 }
@@ -76,23 +112,7 @@ std::string Card::ToString(void) const
 		assert(true);
 	}
 
-	switch(m_suit)
-	{
-	case Clubs:
-		ss << "C";
-		break;
-	case Diamonds:
-		ss << "D";
-		break;
-	case Hearts:
-		ss << "H";
-		break;
-	case Spades:
-		ss << "S";
-		break;
-	default:
-		assert(true);
-	}
+	ss << SuitToChar(m_suit);
 
 	std::string str;
 	ss >> str;
@@ -101,7 +121,7 @@ std::string Card::ToString(void) const
 }
 
 
-bool Card::Beats(Card*& other) const
+bool Card::Beats(Card*& other, Suit trumps, bool useTrumps) const
 {
 	if(m_suit == other->m_suit)
 	{
@@ -109,6 +129,10 @@ bool Card::Beats(Card*& other) const
 		{
 			return true;
 		}
+	}
+	if(useTrumps && (other->m_suit != trumps) && (m_suit == trumps))
+	{
+		return true;
 	}
 
 	return false;
@@ -130,4 +154,57 @@ bool Card::operator<(const Card& other) const
 		return(other.m_number < this->m_number);
 	}
 	return(other.m_suit < this->m_suit);
+}
+
+Card* Card::FromString(std::string &str)
+{
+	std::stringstream ss;
+	ss << str;
+
+	if(str.size() < 2)
+	{
+		return NULL;
+	}
+	
+	unsigned int num;
+	Suit suit;
+	char dummy;
+
+	switch(str[0])
+	{
+	case 'A':
+	case 'a':
+		num = 1;
+		ss >> dummy;
+		break;
+	case 'K':
+	case 'k':
+		num = 13;
+		ss >> dummy;
+		break;
+	case 'Q':
+	case 'q':
+		num = 12;
+		ss >> dummy;
+		break;
+	case 'J':
+	case 'j':
+		num = 11;
+		ss >> dummy;
+		break;
+	default:
+		{
+			ss >> num;
+		}
+	}
+
+	if(num < 1 || num > 13)
+	{
+		return NULL;
+	}
+
+	ss >> dummy;
+	suit = SuitFromChar(dummy);
+
+	return new Card(suit, num);
 }

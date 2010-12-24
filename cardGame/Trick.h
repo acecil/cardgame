@@ -12,7 +12,7 @@ enum Suit;
 class Trick
 {
 public:
-	Trick(const Settings* settings, std::list<Player*> players);
+	Trick(const Settings* settings, std::list<Player*> players, Suit trumps=(Suit)0);
 	virtual ~Trick(void);
 
 	void Play(Player* player, Card* card);
@@ -29,5 +29,7 @@ private:
 	const Settings* m_settings;
 	std::list<Player*> m_players;
 	Player* m_winningPlayer;
+	Card* m_winningCard;
+	Suit m_trumps;
 };
 

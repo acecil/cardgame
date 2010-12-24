@@ -124,7 +124,22 @@ void Game::PlayTrick(void)
 		/* Some other means for deciding the player order. */
 	}
 
-	Trick *trick = new Trick(m_settings, m_players);
+	/* Determine trumps. */
+	Suit trumps;
+	if(m_settings->Trumps)
+	{
+		if(m_settings->TrumpsRandom)
+		{
+			trumps = (Suit)(rand() % LastSuit);
+			std::cout << "Trumps: " << SuitToString(trumps) << std::endl;
+		}
+		else
+		{
+			/* Other methods for determining trumps. */
+		}
+	}
+
+	Trick *trick = new Trick(m_settings, m_players, trumps);
 
 	while(!trick->Complete())
 	{

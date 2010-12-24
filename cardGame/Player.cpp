@@ -39,19 +39,24 @@ Card* Player::PlayCard(Trick* trick, bool followSuit)
 
 	while(true)
 	{
-		unsigned int num;
-		char suitChar;
+		std::string str;
 
-		while(!(std::cin >> num >> suitChar))
+		while(!(std::cin >> str))
 		{
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 			std::cout << "Invalid input" << std::endl;
 		}
 		
-		Suit suit = SuitFromChar(suitChar);
+		card = Card::FromString(str);
 
-		card = new Card((Suit)suit, num);
+		if(!card)
+		{
+			std::cout << "Invalid input" << std::endl;
+			continue;
+		}
+
+		Suit suit = card->GetSuit();
 
 		if(m_hand->Find(card))
 		{
@@ -67,7 +72,7 @@ Card* Player::PlayCard(Trick* trick, bool followSuit)
 		std::cout << "Invalid choice" << std::endl;
 	}
 
-	std::cout << std::endl;
+	std::cout << "\n" << std::endl;
 
 	assert(true);
 

@@ -8,10 +8,11 @@
 #include "Player.h"
 #include "Card.h"
 
-Trick::Trick(const Settings* settings, std::list<Player*> players)
+Trick::Trick(const Settings* settings, std::list<Player*> players, Suit trumps)
 { 
 	m_settings = settings;
 	m_players = players;
+	m_trumps = trumps;
 }
 
 Trick::~Trick(void)
@@ -23,12 +24,14 @@ void Trick::Play(Player* player, Card* card)
 	if(m_cards.empty())
 	{
 		m_winningPlayer = player;
+		m_winningCard = card;
 	}
 	else
 	{
-		if(card->Beats(m_cards.front().second))
+		if(card->Beats(m_winningCard, m_trumps, m_settings->Trumps))
 		{
 			m_winningPlayer = player;
+			m_winningCard = card;
 		}
 	}
 

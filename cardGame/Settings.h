@@ -7,9 +7,11 @@ public:
 	bool LastWinnerPlaysFirst;
 	bool FollowSuit;
 	bool Trumps;
+	bool TrumpsRandom;
 	bool PlayInOrder;
 	bool PlayAllCards;
 
 };
 
-const Settings Whist = { 7, true, true, false, true, true };
+const Settings Whist = { 7, true, true, false, false, true, true };
+const Settings Trumps = { 7, true, true, true, true, true, true };
