@@ -4,10 +4,11 @@
 #include <utility>
 #include <string>
 
+#include "Card.h"
+
 class Player;
 class Settings;
 class Card;
-enum Suit;
 
 class Trick
 {
