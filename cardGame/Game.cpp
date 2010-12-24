@@ -206,6 +206,12 @@ Player* Game::GetWinner(void) const
 	return winner;
 }
 
+void Game::PrintResult(void) const
+{
+	std::string str = GetWinner()->ToString();
+	std::cout << str << " is the winner. Well done!" << std::endl;
+}
+
 void Game::reset(void)
 {
 	srand(unsigned int(time(NULL)));

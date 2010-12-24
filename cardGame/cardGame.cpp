@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 
+#include <iostream>
+
 #include "Game.h"
 #include "Player.h"
 #include "Settings.h"
@@ -16,6 +18,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	game->AddPlayer(new Player("Judy"));
 
 	game->Play();
+
+	game->PrintResult();
+
+	std::cin.ignore();
+	std::cin.ignore();
 
 	return 0;
 }

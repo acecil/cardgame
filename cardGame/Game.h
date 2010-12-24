@@ -19,6 +19,7 @@ public:
 	void PlayTrick(void);
 
 	Player* GetWinner(void) const;
+	void PrintResult(void) const;
 
 private:
 	void reset(void);
