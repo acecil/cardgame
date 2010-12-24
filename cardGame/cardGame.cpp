@@ -1,15 +1,13 @@
 // cardGame.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
-
 #include <iostream>
 
 #include "Game.h"
 #include "Player.h"
 #include "Settings.h"
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	Game *game = new Game(&Trumps, 1);
 
