@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <time.h>
 
 #include "Game.h"
 
@@ -190,6 +191,8 @@ Player* Game::GetWinner(void) const
 
 void Game::reset(void)
 {
+	srand(unsigned int(time(NULL)));
+
 	std::list<Trick*>::iterator t;
 	for(t = m_tricks.begin(); t != m_tricks.end(); ++t)
 	{

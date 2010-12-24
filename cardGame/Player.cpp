@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <limits>
 
 #include "Player.h"
 
@@ -40,7 +41,14 @@ Card* Player::PlayCard(Trick* trick, bool followSuit)
 	{
 		unsigned int num;
 		char suitChar;
-		std::cin >> num >> suitChar;
+
+		while(!(std::cin >> num >> suitChar))
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cout << "Invalid input" << std::endl;
+		}
+		
 		Suit suit = SuitFromChar(suitChar);
 
 		card = new Card((Suit)suit, num);
