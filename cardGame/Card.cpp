@@ -6,6 +6,8 @@
 
 #include "Card.h"
 
+bool Card::m_acesHigh;
+
 Suit SuitFromChar(char ch)
 {
 	switch(ch)
@@ -63,6 +65,31 @@ std::string SuitToString(Suit suit)
 		assert(true);
 		return "";
 	}
+}
+
+bool CardEqual::operator()(Card* lhs, Card* rhs)
+{
+	return ((lhs->GetSuit() == rhs->GetSuit()) && (lhs->GetNumber() == rhs->GetNumber()));
+}
+
+bool CardLess::operator()(Card* lhs, Card* rhs)
+{
+	if(lhs->GetSuit() == rhs->GetSuit())
+	{
+		if(Card::GetAcesHigh())
+		{
+			if(lhs->GetNumber() == 1)
+			{
+				return false;
+			}
+			if(rhs->GetNumber() == 1)
+			{
+				return true;
+			}
+		}
+		return(lhs->GetNumber() < rhs->GetNumber());
+	}
+	return(lhs->GetSuit() < rhs->GetSuit());
 }
 
 Card::Card(void)
@@ -138,23 +165,30 @@ bool Card::Beats(Card*& other, Suit trumps, bool useTrumps) const
 	return false;
 }
 
-bool Card::operator<(const Card*& other) const
-{
-	if(other->m_suit == this->m_suit)
-	{
-		return(other->m_number < this->m_number);
-	}
-	return(other->m_suit < this->m_suit);
-}
-
-bool Card::operator<(const Card& other) const
-{
-	if(other.m_suit == this->m_suit)
-	{
-		return(other.m_number < this->m_number);
-	}
-	return(other.m_suit < this->m_suit);
-}
+//bool Card::operator<(const Card*& other) const
+//{
+//	if(this->m_suit == other->m_suit)
+//	{
+//		if(m_acesHigh)
+//		{
+//			if(this->m_number == 1)
+//			{
+//				return false;
+//			}
+//			if(other->m_number == 1)
+//			{
+//				return true;
+//			}
+//		}
+//		return(this->m_number < other->m_number);
+//	}
+//	return(this->m_suit < other->m_suit);
+//}
+//
+//bool Card::operator<(const Card& other) const
+//{
+//	return (this < &other);
+//}
 
 Card* Card::FromString(std::string &str)
 {

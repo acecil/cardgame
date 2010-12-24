@@ -10,8 +10,9 @@ public:
 	bool TrumpsRandom;
 	bool PlayInOrder;
 	bool PlayAllCards;
+	bool AcesHigh;
 
 };
 
-const Settings Whist = { 7, true, true, false, false, true, true };
-const Settings Trumps = { 7, true, true, true, true, true, true };
+const Settings Whist = { 7, true, true, false, false, true, true, true };
+const Settings Trumps = { 7, true, true, true, true, true, true, true };

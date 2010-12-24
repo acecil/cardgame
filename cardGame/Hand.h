@@ -3,7 +3,10 @@
 #include <set>
 #include <string>
 
+#include "Card.h"
+
 class Card;
+class CardLess;
 enum Suit;
 
 class Hand
@@ -22,6 +25,6 @@ public:
 	std::string ToString(void) const;
 
 private:
-	std::set<Card*> m_cards;
+	std::set<Card*, CardLess> m_cards;
 };
 

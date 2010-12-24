@@ -22,11 +22,10 @@ void Hand::Deal(Card* card)
 
 bool Hand::Find(Card* card) const
 {
-	std::set<Card*>::iterator c;
+	std::set<Card*, CardLess>::iterator c;
 	for(c = m_cards.begin(); c != m_cards.end(); ++c)
 	{
-		Card f = **c;
-		if(f == *card)
+		if(CardEqual()(*c, card))
 		{
 			return true;
 		}
@@ -36,11 +35,10 @@ bool Hand::Find(Card* card) const
 
 void Hand::Remove(Card* card)
 {
-	std::set<Card*>::iterator c;
+	std::set<Card*, CardLess>::iterator c;
 	for(c = m_cards.begin(); c != m_cards.end(); ++c)
 	{
-		Card f = **c;
-		if(f == *card)
+		if(CardEqual()(*c, card))
 		{
 			m_cards.erase(c);
 			return;
@@ -56,7 +54,7 @@ unsigned int Hand::GetNumCards(void) const
 unsigned int Hand::CountOfSuit(Suit suit) const
 {
 	unsigned int num_cards = 0;
-	std::set<Card*>::iterator c;
+	std::set<Card*, CardLess>::iterator c;
 	for(c = m_cards.begin(); c != m_cards.end(); ++c)
 	{
 		if((*c)->GetSuit() == suit)
@@ -73,7 +71,7 @@ std::string Hand::ToString(void) const
 {
 	std::string str;
 
-	std::set<Card*>::const_iterator c;
+	std::set<Card*, CardLess>::const_iterator c;
 
 	for(c = m_cards.begin(); c != m_cards.end(); ++c)
 	{

@@ -18,6 +18,8 @@ Game::Game(const Settings* settings, unsigned int numRounds)
 	m_settings = settings;
 	m_numRounds = numRounds;
 
+	Card::SetAcesHigh(m_settings->AcesHigh);
+
 	m_deck = new Deck();
 
 	reset();

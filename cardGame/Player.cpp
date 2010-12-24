@@ -44,12 +44,11 @@ Card* Player::PlayCard(Trick* trick, bool followSuit)
 		while(!(std::cin >> str))
 		{
 			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Invalid input" << std::endl;
 		}
 		
 		card = Card::FromString(str);
-
 		if(!card)
 		{
 			std::cout << "Invalid input" << std::endl;
@@ -71,8 +70,6 @@ Card* Player::PlayCard(Trick* trick, bool followSuit)
 
 		std::cout << "Invalid choice" << std::endl;
 	}
-
-	std::cout << "\n" << std::endl;
 
 	assert(true);
 

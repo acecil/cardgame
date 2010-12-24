@@ -18,6 +18,20 @@ Suit SuitFromChar(char ch);
 char SuitToChar(Suit suit);
 std::string SuitToString(Suit suit);
 
+class Card;
+
+class CardEqual
+{
+public:
+	bool operator()(Card* lhs, Card* rhs);
+};
+
+class CardLess
+{
+public:
+	bool operator()(Card* lhs, Card* rhs);
+};
+
 class Card
 {
 public:
@@ -32,14 +46,14 @@ public:
 
 	bool Beats(Card*& other, Suit trumps, bool useTrumps) const;
 
-	bool operator<(const Card*& other) const;
-	bool operator<(const Card& other) const;
-	bool operator==(const Card& other) const { return ((m_number == other.m_number) && (m_suit == other.m_suit)); }
-
 	static Card* FromString(std::string &str);
+	static void SetAcesHigh(bool acesHigh) { m_acesHigh = acesHigh; }
+	static bool GetAcesHigh(void) { return m_acesHigh; }
 
 private:
 	unsigned int m_number;
 	Suit m_suit;
+
+	static bool m_acesHigh;
 };
 
