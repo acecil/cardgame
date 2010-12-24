@@ -15,9 +15,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	game->AddPlayer(new Player("Andrew"));
 	game->AddPlayer(new Player("Richard"));
-	game->AddPlayer(new Player("Judy"));
-	game->AddPlayer(new Player("James"));
-	game->AddPlayer(new Player("Helen"));
 
 	game->Play();
 

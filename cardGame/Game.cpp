@@ -85,6 +85,12 @@ void Game::PlayRound(void)
 		{
 			(*h)->Deal(*c);
 			c++;
+			if(c == m_deck->End())
+			{
+				std::cout << "Not enough cards" << std::endl;
+				m_gameOver = true;
+				return;
+			}
 		}
 	}
 
@@ -190,7 +196,7 @@ void Game::PlayTrick(void)
 
 Player* Game::GetWinner(void) const
 {
-	Player* winner;
+	Player* winner = NULL;
 	int maxScore = 0;
 
 	std::list<Player*>::const_iterator i;
@@ -208,7 +214,9 @@ Player* Game::GetWinner(void) const
 
 void Game::PrintResult(void) const
 {
-	std::string str = GetWinner()->ToString();
+	Player *winner = GetWinner();
+
+	std::string str = winner ? winner->ToString() : "No-one";
 	std::cout << str << " is the winner. Well done!" << std::endl;
 }
 
