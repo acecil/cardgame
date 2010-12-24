@@ -152,10 +152,18 @@ bool Card::Beats(Card*& other, Suit trumps, bool useTrumps) const
 {
 	if(m_suit == other->m_suit)
 	{
-		if(m_number > other->m_number)
+		if(m_acesHigh)
 		{
-			return true;
+			if(m_number == 1)
+			{
+				return true;
+			}
+			if(other->m_number == 1)
+			{
+				return false;
+			}
 		}
+		return (m_number > other->m_number);
 	}
 	if(useTrumps && (other->m_suit != trumps) && (m_suit == trumps))
 	{
