@@ -1,0 +1,8 @@
+This is the beginning of a card game program.
+
+To compile under Windows:
+Open the supplied cardGame.sln solution file and compile in Visual C++ 2010.
+
+To compile under Linux:
+cd to the cardGame sub-directory.
+type "make"
