@@ -1,5 +1,7 @@
 User defined rules for card games:
 
-- type
+- Type (Trick taking, Matching, Shedding etc)
 - # of hands
 - # of cards per hand
+- What is a valid play?
+- Point scoring system - cards remaining (+ multipliers)
