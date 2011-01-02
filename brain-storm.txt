@@ -1,7 +1,16 @@
 User defined rules for card games:
 
+user case: big 2
 - Type (Trick taking, Matching, Shedding etc)
+- game type
 - # of hands
-- # of cards per hand
+- # of cards per hand (13)
 - What is a valid play?
 - Point scoring system - cards remaining (+ multipliers)
+- # of players (must be 4)
+- round rule to end types
+  i) 	exhaust # of hands (all players)
+  ii)   exhaust # of hands (single player)
+- game rule to end types
+  i) 	exhaust # of hands
+  ii) 	max point reached
