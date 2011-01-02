@@ -1,5 +1,13 @@
 User defined rules for card games:
 
-- type
+user case: big 2
+- game type
 - # of hands
-- # of cards per hand
+- # of cards per hand (13)
+- # of players (must be 4)
+- round rule to end types
+  i) 	exhaust # of hands (all players)
+  ii)   exhaust # of hands (single player)
+- game rule to end types
+  i) 	exhaust # of hands
+  ii) 	max point reached
