@@ -1,2 +1,5 @@
 User defined rules for card games:
 
+- type
+- # of hands
+- # of cards per hand
