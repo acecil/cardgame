@@ -7,3 +7,5 @@ cardGame.sdf
 cardGame.suo
 ipch
 cardGame/cardGame.vcxproj.*
+*.o
+cardGame/cardGame
