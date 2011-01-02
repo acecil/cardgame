@@ -7,6 +7,7 @@
 #include "Settings.h"
 #include "Player.h"
 #include "Card.h"
+#include "Hand.h"
 
 Trick::Trick(const Settings* settings, std::list<Player*> players, Suit trumps)
 { 
@@ -62,6 +63,18 @@ bool Trick::Complete(void) const
 {
 	/* This needs to depend on settings. */
 	return (m_cards.size() == m_players.size());
+}
+
+bool Trick::IsValidCardToPlay(Hand *hand, Card *card)
+{
+	if(!m_settings->FollowSuit || (GetNumCards() == 0)
+		|| (GetFirstSuit() == card->GetSuit())
+		|| (hand->CountOfSuit(GetFirstSuit()) == 0))
+	{
+		return true;
+	}
+
+	return false;
 }
 
 unsigned int Trick::GetNumCards(void) const

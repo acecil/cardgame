@@ -29,7 +29,7 @@ void Player::Deal(Hand* hand)
 	m_hand = hand;
 }
 
-Card* Player::PlayCard(Trick* trick, bool followSuit)
+Card* Player::PlayCard(Trick* trick)
 {
 	std::cout << ToString() << std::endl;
 	std::cout << "Your cards: " << m_hand->ToString() << std::endl;
@@ -59,9 +59,7 @@ Card* Player::PlayCard(Trick* trick, bool followSuit)
 
 		if(m_hand->Find(card))
 		{
-			if(!followSuit || (trick->GetNumCards() == 0)
-				|| (trick->GetFirstSuit() == suit)
-				|| (m_hand->CountOfSuit(trick->GetFirstSuit()) == 0))
+			if(trick->IsValidCardToPlay(m_hand, card))
 			{
 				m_hand->Remove(card);
 				return card;

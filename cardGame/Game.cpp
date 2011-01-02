@@ -151,7 +151,7 @@ void Game::PlayTrick(void)
 
 	while(!trick->Complete())
 	{
-		trick->Play(nextPlayer, nextPlayer->PlayCard(trick, m_settings->FollowSuit));
+		trick->Play(nextPlayer, nextPlayer->PlayCard(trick));
 
 		if(m_settings->PlayInOrder)
 		{

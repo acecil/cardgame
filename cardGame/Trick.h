@@ -9,6 +9,7 @@
 class Player;
 class Settings;
 class Card;
+class Hand;
 
 class Trick
 {
@@ -19,6 +20,8 @@ public:
 	void Play(Player* player, Card* card);
 	Player* Score(void);
 	bool Complete(void) const;
+
+	bool IsValidCardToPlay(Hand *hand, Card *card);
 
 	unsigned int GetNumCards(void) const;
 	Suit GetFirstSuit(void) const;

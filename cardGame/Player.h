@@ -17,7 +17,7 @@ public:
 
 	void Deal(Hand* hand);
 
-	Card* PlayCard(Trick* trick, bool followSuit);
+	Card* PlayCard(Trick* trick);
 
 	int GetScore(void) const;
 	void AddScore(int score);
