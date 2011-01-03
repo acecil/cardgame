@@ -78,7 +78,6 @@
     <ClInclude Include="Hand.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Settings.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="Trick.h" />
   </ItemGroup>
   <ItemGroup>
