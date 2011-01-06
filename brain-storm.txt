@@ -6,6 +6,11 @@ user case: big 2
 - # of hands
 - # of cards per hand (13)
 - What is a valid play?
+	Use rules based system to enter valid plays
+	Greater than last card(s)
+	Same suit as last card(s)
+	More complicated schemes
+	Use same rules based system for winner/score.
 - Point scoring system - cards remaining (+ multipliers)
 - # of players (must be 4)
 - round rule to end types
