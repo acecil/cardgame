@@ -6,6 +6,8 @@ user case: big 2
 - # of hands
 - # of cards per hand (13)
 - What is a valid play?
+	Save rules to file
+	Load rules from file
 	Use rules based system to enter valid plays
 	Greater than last card(s)
 	Same suit as last card(s)
